@@ -1,10 +1,13 @@
 package com.xlh.navigationdemo
 
 import android.app.Activity
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import androidx.activity.viewModels
 import androidx.lifecycle.ViewModelProviders
+import androidx.navigation.Navigation
 import androidx.navigation.findNavController
 import com.xlh.navigationdemo.viewmodle.NumberModel
 import com.xlh.navigationdemo.viewmodle.UserModel
@@ -17,35 +20,14 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        Log.i("startActivity","start MainActivity")
 
-        val numberModel by viewModels<NumberModel>()
-        val model = ViewModelProviders.of(this).get(NumberModel::class.java)
-
-
-
-        textView.text = numberModel.number.toString()
+        findNavController(R.id.mainFragment).navigateUp()
 
 
-        plus1.setOnClickListener {
-            numberModel.plusOne()
-//            numberModel.number ++
-            textView.text = numberModel.number.toString()
+    }
 
-        }
-        plus2.setOnClickListener {
-            numberModel.plusTwo()
-//            numberModel.number +=2
-            textView.text = numberModel.number.toString()
-
-        }
-
-
-
-
-
-
-
-
-
+    override fun onSupportNavigateUp(): Boolean {
+        return findNavController(R.id.mainFragment).navigateUp()
     }
 }
